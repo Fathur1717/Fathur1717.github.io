@@ -6,7 +6,7 @@
     <title>Nilai Sensor - Mikroklimat Monitoring</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <style>
-        /* Salin SEMUA CSS dari file index.html Anda ke sini */
+        /* General Styling */
         body {
             margin: 0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -33,7 +33,11 @@
             border-bottom: 1px solid #5a9e5c;
             margin-bottom: 20px;
         }
-        .sidebar .logo i { font-size: 2.5rem; }
+        /* ▼▼▼ CSS BARU UNTUK LOGO ▼▼▼ */
+        .sidebar .logo .logo-img {
+            height: 45px;
+            width: auto;
+        }
         .sidebar .logo-text { font-size: 1.2rem; font-weight: bold; }
         .sidebar nav ul { list-style: none; padding: 0; margin: 0; }
         .sidebar nav li a {
@@ -51,13 +55,13 @@
         .sidebar nav li a.active, .sidebar nav li a:hover { background-color: #66bb6a; }
         .sidebar nav li a i { width: 25px; text-align: center; font-size: 1.4rem; }
 
-        /* --- Main Content --- */
+        /* --- Main Content (dan seterusnya tidak ada perubahan) --- */
         .main-content {
             flex-grow: 1;
             padding: 20px;
             display: flex;
             flex-direction: column;
-            overflow-y: auto; /* Tambahkan ini agar bisa di-scroll jika tabel panjang */
+            overflow-y: auto;
         }
         .main-header {
             display: flex;
@@ -73,8 +77,6 @@
         }
         .user-info { font-weight: bold; }
         .search-bar i { color: #888; }
-        
-        /* --- Styling untuk Halaman Nilai Sensor --- */
         .sensor-table-container {
             background-color: #fff;
             padding: 20px;
@@ -101,7 +103,6 @@
         .sensor-table tr:hover {
             background-color: #f1f1f1;
         }
-        /* Style khusus untuk baris prediksi */
         .prediction-row td:first-child, .prediction-row td:nth-child(2) {
             font-weight: bold;
             color: #3d8c40;
@@ -113,12 +114,12 @@
 
     <aside class="sidebar">
         <div class="logo">
-            <i class="fa-solid fa-shield-halved"></i>
+            <!-- ▼▼▼ ICON DIGANTI GAMBAR ▼▼▼ -->
+            <img src="logoseco.png" alt="Logo Seco" class="logo-img">
             <span class="logo-text">Mikroklimat<br>Monitoring</span>
         </div>
         <nav>
             <ul>
-                <!-- Di halaman ini, 'Nilai Sensor' yang aktif -->
                 <li><a href="index.html"><i class="fa-solid fa-house-chimney"></i> Pemantauan</a></li>
                 <li><a href="nilai-sensor.html" class="active"><i class="fa-solid fa-tower-broadcast"></i> Nilai Sensor</a></li>
                 <li><a href="#"><i class="fa-solid fa-cog"></i> Pengaturan</a></li>
@@ -136,7 +137,6 @@
             </div>
         </header>
 
-        <!-- KONTEN UTAMA HALAMAN INI -->
         <div class="sensor-table-container">
             <h2>Data Historis & Prediksi</h2>
             <p>Menampilkan data terbaru dari semua sensor yang terpasang serta prediksi masa simpan (shelf-life).</p>
@@ -180,14 +180,12 @@
                         <td>30%</td>
                         <td>Rendah</td>
                     </tr>
-                    <!-- ▼▼▼ BARIS BARU YANG DITAMBAHKAN ▼▼▼ -->
                     <tr class="prediction-row">
                         <td>20/07/2025 08:31:00 AM</td>
                         <td>Shelf-life Prediction</td>
                         <td>15 Hari</td>
                         <td>Baik</td>
                     </tr>
-                    <!-- ▲▲▲ AKHIR DARI BARIS BARU ▲▲▲ -->
                 </tbody>
             </table>
         </div>

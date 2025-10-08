@@ -33,8 +33,10 @@
             border-bottom: 1px solid #5a9e5c;
             margin-bottom: 20px;
         }
-        .sidebar .logo i {
-            font-size: 2.5rem;
+        /* ▼▼▼ CSS BARU UNTUK LOGO ▼▼▼ */
+        .sidebar .logo .logo-img {
+            height: 45px;
+            width: auto;
         }
         .sidebar .logo-text {
             font-size: 1.2rem;
@@ -66,7 +68,7 @@
             font-size: 1.4rem;
         }
 
-        /* --- Main Content --- */
+        /* --- Main Content (dan seterusnya tidak ada perubahan) --- */
         .main-content {
             flex-grow: 1;
             padding: 20px;
@@ -92,11 +94,7 @@
             border-radius: 20px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
-        .search-bar i {
-            color: #888;
-        }
-
-        /* --- Widgets Grid --- */
+        .search-bar i { color: #888; }
         .widgets-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -109,128 +107,32 @@
             border: 1px solid #ddd;
             box-shadow: 0 4px 8px rgba(0,0,0,0.05);
         }
-        .widget h3 {
-            margin-top: 0;
-            color: #333;
-        }
-        .widget .timestamp {
-            font-size: 0.8em;
-            color: #888;
-            margin-top: 15px;
-        }
-
-        /* Temperature Slider Styling */
-        .slider-container {
-            width: 100%;
-            height: 15px;
-            background-color: #e0e0e0;
-            border-radius: 10px;
-            position: relative;
-        }
-        .slider-progress {
-            height: 100%;
-            background-color: #3498db;
-            border-radius: 10px;
-        }
-        .slider-thumb {
-            position: absolute;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            width: 25px;
-            height: 25px;
-            background-color: #fff;
-            border: 3px solid #3498db;
-            border-radius: 50%;
-        }
-
-        /* Humidity Gauge Styling */
-        .gauge-container {
-            width: 200px;
-            height: 100px;
-            margin: 20px auto;
-            position: relative;
-        }
-        .gauge-bg {
-            width: 200px;
-            height: 100px;
-            border-radius: 100px 100px 0 0;
-            background: conic-gradient(from -90deg, #2ecc71 0% 40%, #f1c40f 40% 60%, #e74c3c 60% 100%);
-            position: absolute;
-        }
-        .gauge-fill {
-            width: 160px;
-            height: 80px;
-            background-color: #fff;
-            border-radius: 80px 80px 0 0;
-            position: absolute;
-            top: 20px;
-            left: 20px;
-        }
-        .gauge-needle {
-            width: 3px;
-            height: 80px;
-            background-color: #34495e;
-            position: absolute;
-            bottom: 0px;
-            left: 98.5px;
-            transform-origin: bottom center;
-            transform: rotate(39deg); /* (77/100 * 180) - 90 = 38.6 */
-            border-radius: 3px 3px 0 0;
-        }
-        .gauge-center {
-            width: 20px;
-            height: 20px;
-            background-color: #34495e;
-            border-radius: 50%;
-            position: absolute;
-            bottom: -10px;
-            left: 90px;
-        }
-
-        /* Thermometer Styling */
-        .thermo-pair {
-            display: flex;
-            justify-content: space-around;
-            gap: 20px;
-        }
-        .thermo-container {
-            text-align: center;
-        }
-        .thermometer {
-            width: 50px;
-            height: 180px;
-            background-color: #f0f0f0;
-            border: 3px solid #bdc3c7;
-            border-radius: 25px;
-            position: relative;
-            margin: 0 auto;
-            overflow: hidden;
-        }
-        .thermo-level {
-            width: 100%;
-            background-color: #3498db;
-            position: absolute;
-            bottom: 0;
-        }
-        .thermo-base {
-            width: 70px;
-            height: 70px;
-            background-color: #3498db;
-            border: 3px solid #bdc3c7;
-            border-radius: 50%;
-            margin: -20px auto 0 auto;
-        }
-
+        .widget h3 { margin-top: 0; color: #333; }
+        .widget .timestamp { font-size: 0.8em; color: #888; margin-top: 15px; }
+        .slider-container { width: 100%; height: 15px; background-color: #e0e0e0; border-radius: 10px; position: relative; }
+        .slider-progress { height: 100%; background-color: #3498db; border-radius: 10px; }
+        .slider-thumb { position: absolute; top: 50%; transform: translate(-50%, -50%); width: 25px; height: 25px; background-color: #fff; border: 3px solid #3498db; border-radius: 50%; }
+        .gauge-container { width: 200px; height: 100px; margin: 20px auto; position: relative; }
+        .gauge-bg { width: 200px; height: 100px; border-radius: 100px 100px 0 0; background: conic-gradient(from -90deg, #2ecc71 0% 40%, #f1c40f 40% 60%, #e74c3c 60% 100%); position: absolute; }
+        .gauge-fill { width: 160px; height: 80px; background-color: #fff; border-radius: 80px 80px 0 0; position: absolute; top: 20px; left: 20px; }
+        .gauge-needle { width: 3px; height: 80px; background-color: #34495e; position: absolute; bottom: 0px; left: 98.5px; transform-origin: bottom center; transform: rotate(39deg); border-radius: 3px 3px 0 0; }
+        .gauge-center { width: 20px; height: 20px; background-color: #34495e; border-radius: 50%; position: absolute; bottom: -10px; left: 90px; }
+        .thermo-pair { display: flex; justify-content: space-around; gap: 20px; }
+        .thermo-container { text-align: center; }
+        .thermometer { width: 50px; height: 180px; background-color: #f0f0f0; border: 3px solid #bdc3c7; border-radius: 25px; position: relative; margin: 0 auto; overflow: hidden; }
+        .thermo-level { width: 100%; background-color: #3498db; position: absolute; bottom: 0; }
+        .thermo-base { width: 70px; height: 70px; background-color: #3498db; border: 3px solid #bdc3c7; border-radius: 50%; margin: -20px auto 0 auto; }
     </style>
 </head>
 <body>
 
     <aside class="sidebar">
         <div class="logo">
-            <i class="fa-solid fa-shield-halved"></i>
+            <!-- ▼▼▼ ICON DIGANTI GAMBAR ▼▼▼ -->
+            <img src="logoseco.png" alt="Logo Seco" class="logo-img">
             <span class="logo-text">Mikroklimat<br>Monitoring</span>
         </div>
-       <nav>
+        <nav>
             <ul>
                 <li><a href="index.html" class="active"><i class="fa-solid fa-house-chimney"></i> Pemantauan</a></li>
                 <li><a href="nilai-sensor.html"><i class="fa-solid fa-tower-broadcast"></i> Nilai Sensor</a></li>
@@ -258,7 +160,6 @@
                 </div>
                 <p class="timestamp">Update : 20/07/2025 08:30:11 AM</p>
             </div>
-
             <div class="widget">
                 <h3>Suhu Buah : 19.1°C</h3>
                 <div class="slider-container">
@@ -266,7 +167,6 @@
                 </div>
                 <p class="timestamp">Update : 20/07/2025 08:30:11 AM</p>
             </div>
-
             <div class="widget">
                 <h3>Kelembapan : 77.0%</h3>
                 <div class="gauge-container">
@@ -277,7 +177,6 @@
                 </div>
                 <p class="timestamp" style="text-align:center;">Update : 20/07/2025 08:30:11 AM</p>
             </div>
-            
             <div class="widget">
                 <div class="thermo-pair">
                     <div class="thermo-container">
@@ -294,7 +193,6 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </main>
 
