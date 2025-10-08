@@ -101,6 +101,11 @@
         .sensor-table tr:hover {
             background-color: #f1f1f1;
         }
+        /* Style khusus untuk baris prediksi */
+        .prediction-row td:first-child, .prediction-row td:nth-child(2) {
+            font-weight: bold;
+            color: #3d8c40;
+        }
 
     </style>
 </head>
@@ -133,13 +138,13 @@
 
         <!-- KONTEN UTAMA HALAMAN INI -->
         <div class="sensor-table-container">
-            <h2>Data Historis Nilai Sensor</h2>
-            <p>Menampilkan data terbaru dari semua sensor yang terpasang.</p>
+            <h2>Data Historis & Prediksi</h2>
+            <p>Menampilkan data terbaru dari semua sensor yang terpasang serta prediksi masa simpan (shelf-life).</p>
             <table class="sensor-table">
                 <thead>
                     <tr>
                         <th>Timestamp</th>
-                        <th>Jenis Sensor</th>
+                        <th>Jenis Sensor / Analisis</th>
                         <th>Nilai</th>
                         <th>Status</th>
                     </tr>
@@ -175,7 +180,14 @@
                         <td>30%</td>
                         <td>Rendah</td>
                     </tr>
-                    <!-- Tambahkan baris data lainnya di sini -->
+                    <!-- ▼▼▼ BARIS BARU YANG DITAMBAHKAN ▼▼▼ -->
+                    <tr class="prediction-row">
+                        <td>20/07/2025 08:31:00 AM</td>
+                        <td>Shelf-life Prediction</td>
+                        <td>15 Hari</td>
+                        <td>Baik</td>
+                    </tr>
+                    <!-- ▲▲▲ AKHIR DARI BARIS BARU ▲▲▲ -->
                 </tbody>
             </table>
         </div>
