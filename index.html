@@ -33,7 +33,7 @@
             border-bottom: 1px solid #5a9e5c;
             margin-bottom: 20px;
         }
-        /* CSS UNTUK LOGO GAMBAR */
+        /* ▼▼▼ CSS BARU UNTUK LOGO ▼▼▼ */
         .sidebar .logo .logo-img {
             height: 45px;
             width: auto;
@@ -68,7 +68,7 @@
             font-size: 1.4rem;
         }
 
-        /* --- Main Content --- */
+        /* --- Main Content (dan seterusnya tidak ada perubahan) --- */
         .main-content {
             flex-grow: 1;
             padding: 20px;
@@ -94,11 +94,7 @@
             border-radius: 20px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
-        .search-bar i {
-            color: #888;
-        }
-
-        /* --- Widgets Grid --- */
+        .search-bar i { color: #888; }
         .widgets-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -111,125 +107,28 @@
             border: 1px solid #ddd;
             box-shadow: 0 4px 8px rgba(0,0,0,0.05);
         }
-        .widget h3 {
-            margin-top: 0;
-            color: #333;
-        }
-        .widget .timestamp {
-            font-size: 0.8em;
-            color: #888;
-            margin-top: 15px;
-        }
-
-        /* Temperature Slider Styling */
-        .slider-container {
-            width: 100%;
-            height: 15px;
-            background-color: #e0e0e0;
-            border-radius: 10px;
-            position: relative;
-        }
-        .slider-progress {
-            height: 100%;
-            background-color: #3498db;
-            border-radius: 10px;
-        }
-        .slider-thumb {
-            position: absolute;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            width: 25px;
-            height: 25px;
-            background-color: #fff;
-            border: 3px solid #3498db;
-            border-radius: 50%;
-        }
-
-        /* Humidity Gauge Styling */
-        .gauge-container {
-            width: 200px;
-            height: 100px;
-            margin: 20px auto;
-            position: relative;
-        }
-        .gauge-bg {
-            width: 200px;
-            height: 100px;
-            border-radius: 100px 100px 0 0;
-            background: conic-gradient(from -90deg, #2ecc71 0% 40%, #f1c40f 40% 60%, #e74c3c 60% 100%);
-            position: absolute;
-        }
-        .gauge-fill {
-            width: 160px;
-            height: 80px;
-            background-color: #fff;
-            border-radius: 80px 80px 0 0;
-            position: absolute;
-            top: 20px;
-            left: 20px;
-        }
-        .gauge-needle {
-            width: 3px;
-            height: 80px;
-            background-color: #34495e;
-            position: absolute;
-            bottom: 0px;
-            left: 98.5px;
-            transform-origin: bottom center;
-            transform: rotate(39deg); /* (77/100 * 180) - 90 = 38.6 */
-            border-radius: 3px 3px 0 0;
-        }
-        .gauge-center {
-            width: 20px;
-            height: 20px;
-            background-color: #34495e;
-            border-radius: 50%;
-            position: absolute;
-            bottom: -10px;
-            left: 90px;
-        }
-
-        /* Thermometer Styling */
-        .thermo-pair {
-            display: flex;
-            justify-content: space-around;
-            gap: 20px;
-        }
-        .thermo-container {
-            text-align: center;
-        }
-        .thermometer {
-            width: 50px;
-            height: 180px;
-            background-color: #f0f0f0;
-            border: 3px solid #bdc3c7;
-            border-radius: 25px;
-            position: relative;
-            margin: 0 auto;
-            overflow: hidden;
-        }
-        .thermo-level {
-            width: 100%;
-            background-color: #3498db;
-            position: absolute;
-            bottom: 0;
-        }
-        .thermo-base {
-            width: 70px;
-            height: 70px;
-            background-color: #3498db;
-            border: 3px solid #bdc3c7;
-            border-radius: 50%;
-            margin: -20px auto 0 auto;
-        }
-
+        .widget h3 { margin-top: 0; color: #333; }
+        .widget .timestamp { font-size: 0.8em; color: #888; margin-top: 15px; }
+        .slider-container { width: 100%; height: 15px; background-color: #e0e0e0; border-radius: 10px; position: relative; }
+        .slider-progress { height: 100%; background-color: #3498db; border-radius: 10px; }
+        .slider-thumb { position: absolute; top: 50%; transform: translate(-50%, -50%); width: 25px; height: 25px; background-color: #fff; border: 3px solid #3498db; border-radius: 50%; }
+        .gauge-container { width: 200px; height: 100px; margin: 20px auto; position: relative; }
+        .gauge-bg { width: 200px; height: 100px; border-radius: 100px 100px 0 0; background: conic-gradient(from -90deg, #2ecc71 0% 40%, #f1c40f 40% 60%, #e74c3c 60% 100%); position: absolute; }
+        .gauge-fill { width: 160px; height: 80px; background-color: #fff; border-radius: 80px 80px 0 0; position: absolute; top: 20px; left: 20px; }
+        .gauge-needle { width: 3px; height: 80px; background-color: #34495e; position: absolute; bottom: 0px; left: 98.5px; transform-origin: bottom center; transform: rotate(39deg); border-radius: 3px 3px 0 0; }
+        .gauge-center { width: 20px; height: 20px; background-color: #34495e; border-radius: 50%; position: absolute; bottom: -10px; left: 90px; }
+        .thermo-pair { display: flex; justify-content: space-around; gap: 20px; }
+        .thermo-container { text-align: center; }
+        .thermometer { width: 50px; height: 180px; background-color: #f0f0f0; border: 3px solid #bdc3c7; border-radius: 25px; position: relative; margin: 0 auto; overflow: hidden; }
+        .thermo-level { width: 100%; background-color: #3498db; position: absolute; bottom: 0; }
+        .thermo-base { width: 70px; height: 70px; background-color: #3498db; border: 3px solid #bdc3c7; border-radius: 50%; margin: -20px auto 0 auto; }
     </style>
 </head>
 <body>
 
     <aside class="sidebar">
         <div class="logo">
-            <!-- IKON DIGANTI DENGAN GAMBAR -->
+            <!-- ▼▼▼ ICON DIGANTI GAMBAR ▼▼▼ -->
             <img src="logoseco.png" alt="Logo Seco" class="logo-img">
             <span class="logo-text">Mikroklimat<br>Monitoring</span>
         </div>
@@ -238,6 +137,7 @@
                 <li><a href="index.html" class="active"><i class="fa-solid fa-house-chimney"></i> Pemantauan</a></li>
                 <li><a href="nilai-sensor.html"><i class="fa-solid fa-tower-broadcast"></i> Nilai Sensor</a></li>
                 <li><a href="#"><i class="fa-solid fa-cog"></i> Pengaturan</a></li>
+                <!-- ▼▼▼ BARIS INI DITAMBAHKAN ▼▼▼ -->
                 <li><a href="cs-chat.html"><i class="fa-solid fa-headset"></i> Customer Service</a></li>
             </ul>
         </nav>
@@ -262,7 +162,6 @@
                 </div>
                 <p class="timestamp">Update : 20/07/2025 08:30:11 AM</p>
             </div>
-
             <div class="widget">
                 <h3>Suhu Buah : 19.1°C</h3>
                 <div class="slider-container">
@@ -270,7 +169,6 @@
                 </div>
                 <p class="timestamp">Update : 20/07/2025 08:30:11 AM</p>
             </div>
-
             <div class="widget">
                 <h3>Kelembapan : 77.0%</h3>
                 <div class="gauge-container">
@@ -281,7 +179,6 @@
                 </div>
                 <p class="timestamp" style="text-align:center;">Update : 20/07/2025 08:30:11 AM</p>
             </div>
-            
             <div class="widget">
                 <div class="thermo-pair">
                     <div class="thermo-container">
@@ -298,212 +195,6 @@
                     </div>
                 </div>
             </div>
-
-        </div>
-    </main>
-
-</body>
-</html>```
-
----
-
-### Langkah 2: Ganti Kode `nilai-sensor.html` Anda dengan Ini
-
-Ini adalah versi terbaru dari halaman "Nilai Sensor" Anda. Saya telah menambahkan kembali tautan *Customer Service* di navigasi agar konsisten.
-
-```html
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nilai Sensor - Mikroklimat Monitoring</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <style>
-        /* General Styling */
-        body {
-            margin: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #eef0f4;
-            display: flex;
-            height: 100vh;
-        }
-
-        /* --- Sidebar --- */
-        .sidebar {
-            width: 250px;
-            background-color: #3d8c40;
-            color: white;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
-        }
-        .sidebar .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid #5a9e5c;
-            margin-bottom: 20px;
-        }
-        /* CSS UNTUK LOGO GAMBAR */
-        .sidebar .logo .logo-img {
-            height: 45px;
-            width: auto;
-        }
-        .sidebar .logo-text { font-size: 1.2rem; font-weight: bold; }
-        .sidebar nav ul { list-style: none; padding: 0; margin: 0; }
-        .sidebar nav li a {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            padding: 15px;
-            text-decoration: none;
-            color: white;
-            border-radius: 10px;
-            margin-bottom: 10px;
-            font-size: 1.1rem;
-            transition: background-color 0.3s;
-        }
-        .sidebar nav li a.active, .sidebar nav li a:hover { background-color: #66bb6a; }
-        .sidebar nav li a i { width: 25px; text-align: center; font-size: 1.4rem; }
-
-        /* --- Main Content --- */
-        .main-content {
-            flex-grow: 1;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            overflow-y: auto;
-        }
-        .main-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-        .user-info, .search-bar {
-            background-color: #fff;
-            padding: 10px 20px;
-            border-radius: 20px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-        }
-        .user-info { font-weight: bold; }
-        .search-bar i { color: #888; }
-        .sensor-table-container {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
-        }
-        .sensor-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 15px;
-        }
-        .sensor-table th, .sensor-table td {
-            padding: 12px 15px;
-            border: 1px solid #ddd;
-            text-align: left;
-        }
-        .sensor-table th {
-            background-color: #f2f2f2;
-            font-weight: bold;
-        }
-        .sensor-table tr:nth-child(even) {
-            background-color: #f9f9f9;
-        }
-        .sensor-table tr:hover {
-            background-color: #f1f1f1;
-        }
-        .prediction-row td:first-child, .prediction-row td:nth-child(2) {
-            font-weight: bold;
-            color: #3d8c40;
-        }
-
-    </style>
-</head>
-<body>
-
-    <aside class="sidebar">
-        <div class="logo">
-            <!-- IKON DIGANTI DENGAN GAMBAR -->
-            <img src="logoseco.png" alt="Logo Seco" class="logo-img">
-            <span class="logo-text">Mikroklimat<br>Monitoring</span>
-        </div>
-        <nav>
-            <ul>
-                <li><a href="index.html"><i class="fa-solid fa-house-chimney"></i> Pemantauan</a></li>
-                <li><a href="nilai-sensor.html" class="active"><i class="fa-solid fa-tower-broadcast"></i> Nilai Sensor</a></li>
-                <li><a href="#"><i class="fa-solid fa-cog"></i> Pengaturan</a></li>
-                <!-- TAUTAN CUSTOMER SERVICE DITAMBAHKAN KEMBALI -->
-                <li><a href="cs-chat.html"><i class="fa-solid fa-headset"></i> Customer Service</a></li>
-            </ul>
-        </nav>
-    </aside>
-
-    <main class="main-content">
-        <header class="main-header">
-            <div class="user-info">
-                User: Nood Universiteit Werehouse
-            </div>
-            <div class="search-bar">
-                <i class="fa-solid fa-search"></i>
-            </div>
-        </header>
-
-        <div class="sensor-table-container">
-            <h2>Data Historis & Prediksi</h2>
-            <p>Menampilkan data terbaru dari semua sensor yang terpasang serta prediksi masa simpan (shelf-life).</p>
-            <table class="sensor-table">
-                <thead>
-                    <tr>
-                        <th>Timestamp</th>
-                        <th>Jenis Sensor / Analisis</th>
-                        <th>Nilai</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>20/07/2025 08:30:11 AM</td>
-                        <td>Temperature Tempat</td>
-                        <td>20.3°C</td>
-                        <td>Normal</td>
-                    </tr>
-                    <tr>
-                        <td>20/07/2025 08:30:11 AM</td>
-                        <td>Suhu Buah</td>
-                        <td>19.1°C</td>
-                        <td>Normal</td>
-                    </tr>
-                    <tr>
-                        <td>20/07/2025 08:30:11 AM</td>
-                        <td>Kelembapan</td>
-                        <td>77.0%</td>
-                        <td>Optimal</td>
-                    </tr>
-                    <tr>
-                        <td>20/07/2025 08:30:05 AM</td>
-                        <td>CO₂</td>
-                        <td>45%</td>
-                        <td>Normal</td>
-                    </tr>
-                    <tr>
-                        <td>20/07/2025 08:30:05 AM</td>
-                        <td>Etilen</td>
-                        <td>30%</td>
-                        <td>Rendah</td>
-                    </tr>
-                    <tr class="prediction-row">
-                        <td>20/07/2025 08:31:00 AM</td>
-                        <td>Shelf-life Prediction</td>
-                        <td>15 Hari</td>
-                        <td>Baik</td>
-                    </tr>
-                </tbody>
-            </table>
         </div>
     </main>
 
