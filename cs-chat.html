@@ -34,8 +34,10 @@
             border-bottom: 1px solid #5a9e5c;
             margin-bottom: 20px;
         }
-        .sidebar .logo i {
-            font-size: 2.5rem;
+        /* PERUBAHAN CSS UNTUK LOGO */
+        .sidebar .logo .logo-image {
+            height: 50px;
+            width: auto;
         }
         .sidebar .logo-text {
             font-size: 1.2rem;
@@ -186,8 +188,9 @@
 <body>
 
     <aside class="sidebar">
+        <!-- PERUBAHAN HTML UNTUK LOGO -->
         <div class="logo">
-            <i class="fa-solid fa-shield-halved"></i>
+            <img src="logoseco.png" alt="Mikroklimat Logo" class="logo-image">
             <span class="logo-text">Mikroklimat<br>Monitoring</span>
         </div>
         <nav>
@@ -321,9 +324,8 @@
 
             displayMessage(userMessage, 'user');
             chatInput.value = '';
-            userMessageCount++; // Tambahkan hitungan setiap kali pengguna mengirim pesan
+            userMessageCount++;
 
-            // LOGIKA UNTUK PESAN KETIGA
             if (userMessageCount === 3) {
                 const specialMessage = "Jika ingin Lebih Jauh, Doakan Kami menang agar bisa berdampak positive bagi pertanian indonesia!!! Love You <3";
 
@@ -337,18 +339,15 @@
                     chatMessages.removeChild(typingIndicator);
                     displayMessage(specialMessage, 'ai');
                     
-                    // Menonaktifkan input dan tombol setelah pesan spesial dikirim
                     chatInput.disabled = true;
                     chatInput.placeholder = "Terima kasih atas dukungannya!";
                     sendButton.disabled = true;
-                }, 1500); // Jeda sedikit lebih lama untuk efek dramatis
+                }, 1500);
 
             } else {
-                // Jika bukan pesan ketiga, jalankan respons AI seperti biasa
                 simulateAiTypingAndResponse(userMessage);
             }
         });
-
     </script>
 </body>
 </html>
