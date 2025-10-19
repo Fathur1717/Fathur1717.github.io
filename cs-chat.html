@@ -34,8 +34,10 @@
             border-bottom: 1px solid #5a9e5c;
             margin-bottom: 20px;
         }
-        .sidebar .logo i {
-            font-size: 2.5rem;
+        /* CSS UNTUK LOGO GAMBAR */
+        .sidebar .logo .logo-img {
+            height: 45px;
+            width: auto;
         }
         .sidebar .logo-text {
             font-size: 1.2rem;
@@ -75,7 +77,7 @@
             flex-direction: column;
             overflow-y: auto;
         }
-        
+
         /* --- Chat Room Styling --- */
         .chat-container {
             display: flex;
@@ -153,7 +155,8 @@
 
     <aside class="sidebar">
         <div class="logo">
-            <i class="fa-solid fa-shield-halved"></i>
+            <!-- IKON DIGANTI DENGAN GAMBAR -->
+            <img src="logoseco.png" alt="Logo Seco" class="logo-img">
             <span class="logo-text">Mikroklimat<br>Monitoring</span>
         </div>
         <nav>
@@ -184,52 +187,35 @@
         </div>
     </main>
 
-    <!-- === AWAL DARI KODE JAVASCRIPT === -->
     <script>
-        // Mengambil elemen-elemen penting dari halaman HTML
         const chatForm = document.getElementById('chat-form');
         const chatInput = document.getElementById('chat-input');
         const messagesContainer = document.getElementById('chat-messages');
 
-        // Fungsi untuk menambahkan pesan baru ke kotak obrolan
         function addMessage(text, sender) {
-            // Membuat elemen div baru untuk pesan
             const messageElement = document.createElement('div');
-            // Menambahkan kelas 'message' dan kelas spesifik ('user' atau 'ai')
             messageElement.classList.add('message', sender);
-            // Mengisi teks pesan
             messageElement.innerText = text;
-            // Menambahkan pesan ke dalam kontainer
             messagesContainer.appendChild(messageElement);
-            // Otomatis scroll ke bawah untuk melihat pesan terbaru
             messagesContainer.scrollTop = messagesContainer.scrollHeight;
         }
 
-        // Menjalankan fungsi ini ketika form dikirim (tombol Kirim ditekan)
         chatForm.addEventListener('submit', function(event) {
-            // Mencegah halaman refresh saat form dikirim
             event.preventDefault(); 
             
-            // Mengambil teks dari input dan menghapus spasi di awal/akhir
             const userMessage = chatInput.value.trim();
 
-            // Jika input tidak kosong
             if (userMessage) {
-                // 1. Tampilkan pesan pengguna di layar
                 addMessage(userMessage, 'user');
-                
-                // 2. Kosongkan kembali kolom input
                 chatInput.value = '';
 
-                // 3. Tampilkan balasan AI setelah jeda 1 detik (agar terlihat alami)
                 setTimeout(() => {
                     const aiResponse = "jika ingin lebih lanjut, doakan kami menang yaa!!! love you";
                     addMessage(aiResponse, 'ai');
-                }, 1000); // 1000 milidetik = 1 detik
+                }, 1000); 
             }
         });
     </script>
-    <!-- === AKHIR DARI KODE JAVASCRIPT === -->
 
 </body>
 </html>
