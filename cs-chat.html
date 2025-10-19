@@ -34,10 +34,8 @@
             border-bottom: 1px solid #5a9e5c;
             margin-bottom: 20px;
         }
-        /* CSS UNTUK LOGO GAMBAR */
-        .sidebar .logo .logo-img {
-            height: 45px;
-            width: auto;
+        .sidebar .logo i {
+            font-size: 2.5rem;
         }
         .sidebar .logo-text {
             font-size: 1.2rem;
@@ -77,12 +75,13 @@
             flex-direction: column;
             overflow-y: auto;
         }
-
+        
         /* --- Chat Room Styling --- */
         .chat-container {
             display: flex;
             flex-direction: column;
             height: 100%;
+            max-height: 95vh; /* Batasi tinggi maksimum */
             background-color: #fff;
             border-radius: 15px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.05);
@@ -94,6 +93,7 @@
             border-bottom: 1px solid #ddd;
             font-weight: bold;
             color: #333;
+            flex-shrink: 0;
         }
         .chat-messages {
             flex-grow: 1;
@@ -108,7 +108,15 @@
             padding: 10px 15px;
             border-radius: 20px;
             line-height: 1.4;
-            word-wrap: break-word;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 0.5s forwards;
+        }
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         .message.ai {
             background-color: #e9e9eb;
@@ -122,11 +130,31 @@
             align-self: flex-end;
             border-bottom-right-radius: 5px;
         }
+        .message.ai.typing span {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background-color: #888;
+            border-radius: 50%;
+            margin: 0 2px;
+            animation: bounce 1.4s infinite;
+        }
+        .message.ai.typing span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        .message.ai.typing span:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+        @keyframes bounce {
+            0%, 80%, 100% { transform: scale(0); }
+            40% { transform: scale(1.0); }
+        }
         .chat-input-form {
             display: flex;
             padding: 15px;
             border-top: 1px solid #ddd;
             background-color: #f9f9f9;
+            flex-shrink: 0;
         }
         .chat-input-form input {
             flex-grow: 1;
@@ -149,14 +177,17 @@
         .chat-input-form button:hover {
             background-color: #317033;
         }
+        .chat-input-form input:disabled, .chat-input-form button:disabled {
+            background-color: #f0f0f0;
+            cursor: not-allowed;
+        }
     </style>
 </head>
 <body>
 
     <aside class="sidebar">
         <div class="logo">
-            <!-- IKON DIGANTI DENGAN GAMBAR -->
-            <img src="logoseco.png" alt="Logo Seco" class="logo-img">
+            <i class="fa-solid fa-shield-halved"></i>
             <span class="logo-text">Mikroklimat<br>Monitoring</span>
         </div>
         <nav>
@@ -176,13 +207,12 @@
             </div>
             <div class="chat-messages" id="chat-messages">
                 <div class="message ai">
-                    Halo! Saya adalah asisten AI Mikroklimat. Ada yang bisa saya bantu terkait data atau perangkat Anda?
+                    Halo! Saya adalah asisten AI Mikroklimat. Tanyakan apa saja tentang status sensor atau data monitoring Anda.
                 </div>
-                <!-- Pesan baru akan ditambahkan di sini oleh JavaScript -->
             </div>
             <form class="chat-input-form" id="chat-form">
                 <input type="text" id="chat-input" placeholder="Ketik pesan Anda di sini..." autocomplete="off">
-                <button type="submit">Kirim</button>
+                <button type="submit" id="send-button">Kirim</button>
             </form>
         </div>
     </main>
@@ -190,32 +220,135 @@
     <script>
         const chatForm = document.getElementById('chat-form');
         const chatInput = document.getElementById('chat-input');
-        const messagesContainer = document.getElementById('chat-messages');
+        const sendButton = document.getElementById('send-button');
+        const chatMessages = document.getElementById('chat-messages');
 
-        function addMessage(text, sender) {
-            const messageElement = document.createElement('div');
-            messageElement.classList.add('message', sender);
-            messageElement.innerText = text;
-            messagesContainer.appendChild(messageElement);
-            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        let userMessageCount = 0; // Variabel untuk menghitung pesan pengguna
+
+        // --- PUSAT LOGIKA AI ---
+        const aiRules = [
+            {
+                keywords: ['etilen', 'ethylene', 'pematangan', 'busuk'],
+                response: 'Level etilen yang tinggi dapat mempercepat pematangan atau pembusukan buah. Saya sarankan untuk memeriksa sistem ventilasi dan pastikan tidak ada buah yang terlalu matang di area sensor. Apakah Anda ingin saya membuat catatan insiden ini?'
+            },
+            {
+                keywords: ['suhu', 'temperatur', 'panas', 'dingin', 'derajat'],
+                response: 'Suhu optimal bergantung pada jenis komoditas. Saat ini, suhu tempat adalah 20.3°C dan suhu buah 19.1°C. Anda dapat melihat detailnya di halaman "Pemantauan". Apakah nilai ini dalam rentang aman?'
+            },
+            {
+                keywords: ['kelembapan', 'lembab', 'humidity', 'rh'],
+                response: 'Kelembapan saat ini adalah 77.0%. Menjaga kelembapan yang tepat sangat penting untuk mencegah pertumbuhan jamur dan dehidrasi pada produk. Level ini terdeteksi normal.'
+            },
+            {
+                keywords: ['co2', 'karbon dioksida', 'oksigen', 'udara'],
+                response: 'Tingkat CO₂ digunakan untuk mengukur kualitas sirkulasi udara. Tingkat yang tinggi bisa menandakan ventilasi yang buruk, yang dapat memengaruhi kualitas produk. Semua data sensor gas dapat dilihat di halaman "Nilai Sensor".'
+            },
+            {
+                keywords: ['laporan', 'report', 'data', 'unduh', 'download', 'ekspor', 'export'],
+                response: 'Tentu, saya bisa membantu terkait laporan. Laporan apa yang Anda butuhkan? Laporan harian, mingguan, bulanan, atau laporan insiden spesifik terkait sensor tertentu?'
+            },
+            {
+                keywords: ['sensor', 'alat', 'device', 'perangkat', 'error', 'rusak', 'offline'],
+                response: 'Jika ada masalah dengan sensor, coba periksa koneksi fisiknya terlebih dahulu. Sensor mana yang ingin Anda diskusikan? Anda dapat melihat status semua sensor di halaman "Nilai Sensor".'
+            },
+            {
+                keywords: ['siapa kamu', 'anda siapa', 'bot', 'ai'],
+                response: 'Saya adalah asisten AI Mikroklimat. Tugas saya adalah membantu Anda memahami data monitoring dan memberikan rekomendasi awal jika ada anomali terdeteksi.'
+            },
+            {
+                keywords: ['bantuan', 'tolong', 'help', 'bingung', 'panduan'],
+                response: 'Tentu. Anda bisa bertanya kepada saya tentang: \n- Status spesifik sensor (contoh: "bagaimana kondisi suhu?").\n- Arti dari sebuah pengukuran (contoh: "kenapa etilen penting?").\n- Cara meminta laporan data.'
+            },
+            {
+                keywords: ['halo', 'hai', 'selamat pagi', 'siang', 'sore', 'malam'],
+                response: 'Halo! Ada yang bisa saya bantu terkait sistem monitoring mikroklimat Anda hari ini?'
+            },
+            {
+                keywords: ['terima kasih', 'makasih', 'thanks', 'ok', 'baik'],
+                response: 'Sama-sama! Jika ada hal lain yang perlu ditanyakan, jangan ragu untuk menghubungi saya lagi.'
+            }
+        ];
+        const defaultResponses = [
+            "Maaf, saya tidak yakin mengerti pertanyaan itu. Bisakah Anda menjelaskannya dengan kata kunci yang lebih spesifik seperti 'suhu', 'laporan', atau 'sensor'?",
+            "Fokus utama saya adalah data dari sistem monitoring. Coba tanyakan sesuatu yang berhubungan dengan temperatur, kelembapan, CO₂, atau etilen.",
+            "Saya masih dalam tahap belajar. Mungkin Anda bisa mencoba bertanya dengan kalimat yang berbeda?"
+        ];
+        
+        function getAiResponse(userMessage) {
+            const lowerCaseMessage = userMessage.toLowerCase();
+            for (const rule of aiRules) {
+                for (const keyword of rule.keywords) {
+                    if (lowerCaseMessage.includes(keyword)) {
+                        return rule.response;
+                    }
+                }
+            }
+            return defaultResponses[Math.floor(Math.random() * defaultResponses.length)];
         }
 
-        chatForm.addEventListener('submit', function(event) {
-            event.preventDefault(); 
-            
-            const userMessage = chatInput.value.trim();
+        // --- FUNGSI TAMPILAN CHAT ---
+        function scrollToBottom() {
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
 
-            if (userMessage) {
-                addMessage(userMessage, 'user');
-                chatInput.value = '';
+        function displayMessage(message, sender) {
+            const messageDiv = document.createElement('div');
+            messageDiv.classList.add('message', sender);
+            messageDiv.innerHTML = message.replace(/\n/g, '<br>');
+            chatMessages.appendChild(messageDiv);
+            scrollToBottom();
+        }
+
+        function simulateAiTypingAndResponse(userMessage) {
+            const typingIndicator = document.createElement('div');
+            typingIndicator.classList.add('message', 'ai', 'typing');
+            typingIndicator.innerHTML = '<span></span><span></span><span></span>';
+            chatMessages.appendChild(typingIndicator);
+            scrollToBottom();
+
+            setTimeout(() => {
+                chatMessages.removeChild(typingIndicator);
+                const aiMessage = getAiResponse(userMessage);
+                displayMessage(aiMessage, 'ai');
+            }, 1200);
+        }
+
+        // Event listener untuk form pengiriman pesan
+        chatForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const userMessage = chatInput.value.trim();
+            if (userMessage === '' || chatInput.disabled) return;
+
+            displayMessage(userMessage, 'user');
+            chatInput.value = '';
+            userMessageCount++; // Tambahkan hitungan setiap kali pengguna mengirim pesan
+
+            // LOGIKA UNTUK PESAN KETIGA
+            if (userMessageCount === 3) {
+                const specialMessage = "Jika ingin Lebih Jauh, Doakan Kami menang agar bisa berdampak positive bagi pertanian indonesia!!! Love You <3";
+
+                const typingIndicator = document.createElement('div');
+                typingIndicator.classList.add('message', 'ai', 'typing');
+                typingIndicator.innerHTML = '<span></span><span></span><span></span>';
+                chatMessages.appendChild(typingIndicator);
+                scrollToBottom();
 
                 setTimeout(() => {
-                    const aiResponse = "jika ingin lebih lanjut, doakan kami menang yaa!!! love you";
-                    addMessage(aiResponse, 'ai');
-                }, 1000); 
+                    chatMessages.removeChild(typingIndicator);
+                    displayMessage(specialMessage, 'ai');
+                    
+                    // Menonaktifkan input dan tombol setelah pesan spesial dikirim
+                    chatInput.disabled = true;
+                    chatInput.placeholder = "Terima kasih atas dukungannya!";
+                    sendButton.disabled = true;
+                }, 1500); // Jeda sedikit lebih lama untuk efek dramatis
+
+            } else {
+                // Jika bukan pesan ketiga, jalankan respons AI seperti biasa
+                simulateAiTypingAndResponse(userMessage);
             }
         });
-    </script>
 
+    </script>
 </body>
 </html>
