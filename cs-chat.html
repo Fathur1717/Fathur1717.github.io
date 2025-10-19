@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Service - Mikroklimat Monitoring</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <style>
+        /* General Styling */
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #eef0f4;
+            display: flex;
+            height: 100vh;
+        }
+
+        /* --- Sidebar --- */
+        .sidebar {
+            width: 250px;
+            background-color: #3d8c40;
+            color: white;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+            flex-shrink: 0;
+        }
+        .sidebar .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #5a9e5c;
+            margin-bottom: 20px;
+        }
+        .sidebar .logo i {
+            font-size: 2.5rem;
+        }
+        .sidebar .logo-text {
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+        .sidebar nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .sidebar nav li a {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            text-decoration: none;
+            color: white;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+            transition: background-color 0.3s;
+        }
+        .sidebar nav li a.active, .sidebar nav li a:hover {
+            background-color: #66bb6a;
+        }
+        .sidebar nav li a i {
+            width: 25px;
+            text-align: center;
+            font-size: 1.4rem;
+        }
+
+        /* --- Main Content --- */
+        .main-content {
+            flex-grow: 1;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+        }
+        
+        /* --- Chat Room Styling --- */
+        .chat-container {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            overflow: hidden;
+        }
+        .chat-header {
+            padding: 15px 20px;
+            background-color: #f5f5f5;
+            border-bottom: 1px solid #ddd;
+            font-weight: bold;
+            color: #333;
+        }
+        .chat-messages {
+            flex-grow: 1;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .message {
+            max-width: 70%;
+            padding: 10px 15px;
+            border-radius: 20px;
+            line-height: 1.4;
+            word-wrap: break-word;
+        }
+        .message.ai {
+            background-color: #e9e9eb;
+            color: #333;
+            align-self: flex-start;
+            border-bottom-left-radius: 5px;
+        }
+        .message.user {
+            background-color: #3d8c40;
+            color: white;
+            align-self: flex-end;
+            border-bottom-right-radius: 5px;
+        }
+        .chat-input-form {
+            display: flex;
+            padding: 15px;
+            border-top: 1px solid #ddd;
+            background-color: #f9f9f9;
+        }
+        .chat-input-form input {
+            flex-grow: 1;
+            border: 1px solid #ccc;
+            padding: 10px 15px;
+            border-radius: 20px;
+            font-size: 1rem;
+            margin-right: 10px;
+        }
+        .chat-input-form button {
+            background-color: #3d8c40;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+        }
+        .chat-input-form button:hover {
+            background-color: #317033;
+        }
+    </style>
+</head>
+<body>
+
+    <aside class="sidebar">
+        <div class="logo">
+            <i class="fa-solid fa-shield-halved"></i>
+            <span class="logo-text">Mikroklimat<br>Monitoring</span>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html"><i class="fa-solid fa-house-chimney"></i> Pemantauan</a></li>
+                <li><a href="nilai-sensor.html"><i class="fa-solid fa-tower-broadcast"></i> Nilai Sensor</a></li>
+                <li><a href="#"><i class="fa-solid fa-cog"></i> Pengaturan</a></li>
+                <li><a href="cs-chat.html" class="active"><i class="fa-solid fa-headset"></i> Customer Service</a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <main class="main-content">
+        <div class="chat-container">
+            <div class="chat-header">
+                Customer Service AI
+            </div>
+            <div class="chat-messages" id="chat-messages">
+                <div class="message ai">
+                    Halo! Saya adalah asisten AI Mikroklimat. Ada yang bisa saya bantu terkait data atau perangkat Anda?
+                </div>
+                <!-- Pesan baru akan ditambahkan di sini oleh JavaScript -->
+            </div>
+            <form class="chat-input-form" id="chat-form">
+                <input type="text" id="chat-input" placeholder="Ketik pesan Anda di sini..." autocomplete="off">
+                <button type="submit">Kirim</button>
+            </form>
+        </div>
+    </main>
+
+    <!-- === AWAL DARI KODE JAVASCRIPT === -->
+    <script>
+        // Mengambil elemen-elemen penting dari halaman HTML
+        const chatForm = document.getElementById('chat-form');
+        const chatInput = document.getElementById('chat-input');
+        const messagesContainer = document.getElementById('chat-messages');
+
+        // Fungsi untuk menambahkan pesan baru ke kotak obrolan
+        function addMessage(text, sender) {
+            // Membuat elemen div baru untuk pesan
+            const messageElement = document.createElement('div');
+            // Menambahkan kelas 'message' dan kelas spesifik ('user' atau 'ai')
+            messageElement.classList.add('message', sender);
+            // Mengisi teks pesan
+            messageElement.innerText = text;
+            // Menambahkan pesan ke dalam kontainer
+            messagesContainer.appendChild(messageElement);
+            // Otomatis scroll ke bawah untuk melihat pesan terbaru
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        // Menjalankan fungsi ini ketika form dikirim (tombol Kirim ditekan)
+        chatForm.addEventListener('submit', function(event) {
+            // Mencegah halaman refresh saat form dikirim
+            event.preventDefault(); 
+            
+            // Mengambil teks dari input dan menghapus spasi di awal/akhir
+            const userMessage = chatInput.value.trim();
+
+            // Jika input tidak kosong
+            if (userMessage) {
+                // 1. Tampilkan pesan pengguna di layar
+                addMessage(userMessage, 'user');
+                
+                // 2. Kosongkan kembali kolom input
+                chatInput.value = '';
+
+                // 3. Tampilkan balasan AI setelah jeda 1 detik (agar terlihat alami)
+                setTimeout(() => {
+                    const aiResponse = "jika ingin lebih lanjut, doakan kami menang yaa!!! love you";
+                    addMessage(aiResponse, 'ai');
+                }, 1000); // 1000 milidetik = 1 detik
+            }
+        });
+    </script>
+    <!-- === AKHIR DARI KODE JAVASCRIPT === -->
+
+</body>
+</html>
